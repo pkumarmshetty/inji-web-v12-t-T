@@ -62,7 +62,7 @@ export const DataShareContent:React.FC<DSContentProps> = (props) => {
                     <span className="font-base text-iw-subTitle" data-testid={"DataShareContent-Consent-Option"}>{t("content.validityTimesHeader")}</span>
                 </label>
 
-                <label onClick={handleClick} className="w-1/2 flex items-center space-x-2" data-testid="DataShareContent-Validity-Date">  
+                <label onClick={handleClick} className="w-1/2 flex items-center space-x-2" data-testid={"DataShareContent-Validity-Date"}>  
                     <div className="relative inline-block">
                         <input 
                             type="radio" 
@@ -76,7 +76,7 @@ export const DataShareContent:React.FC<DSContentProps> = (props) => {
                             onClick={(e) => { e.stopPropagation(); handleClick();}}
                         />
                     </div>
-                        <span className="font-light text-iw-subTitle" data-testid="DataShareContent-Validity-Date-Title">
+                        <span className="font-light text-iw-subTitle" data-testid={"DataShareContent-Validity-Date-Title"}>
                         {t("content.validityDate")}</span>
                 </label>
             </div>
