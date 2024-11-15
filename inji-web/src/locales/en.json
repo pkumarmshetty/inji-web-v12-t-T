@@ -258,7 +258,7 @@
     "item23":{
       "title":"How can I toggle between embedded VC and Online Sharing in Inji Wallet?",
       "description1":"Configure qr_code_type in Mimoto issuer's settings: ",
-      "description2":"1. EmbeddedVC: Embeds the full VC in JSON format (denser QR code) for offline use",
+      "description2":"1. EmbeddedVC: Embeds the full VC in JSON format (denser QR code) for offline use.",
       "description3":"2. OnlineSharing: Generates a QR code with a URL to the online VC storage, making it easier to scan and share online."
     }
   },
