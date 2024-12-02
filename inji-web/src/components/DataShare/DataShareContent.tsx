@@ -46,26 +46,26 @@ export const DataShareContent:React.FC<DSContentProps> = (props) => {
         <div className="relative flex">
             <div className="my-4 w-1/3 text-iw-subTitle text-lg leading-relaxed py-5" data-testid={"DataShareContent-Consent-Container"}>{t("content.consent")}</div>
             <div className={"my-4 w-2/3 flex flex-row py-5 items-center"}>
-                <label className="w-1/2 flex items-center space-x-2">
+                <label className="w-1/2 flex items-center">
                     <input
                         type="radio"
                         name="consentValidity"
                         value="number"
                         checked={true}
                         data-testid={"DataShareContent-Consent-Radio"}
-                        className="accent-iw-primary scale-150"
+                        className="accent-iw-primary scale-150 mx-2"
                     />
                     <span className="font-base text-iw-subTitle" data-testid={"DataShareContent-Consent-Option"}>{t("content.validityTimesHeader")}</span>
                 </label>
 
-                <label onClick={()=>toast.warning(t("toastText"))} className="w-1/2 flex items-center space-x-2" data-testid={"DataShareContent-Validity-Date"}>  
+                <label onClick={()=>toast.warning(t("toastText"))} className="w-1/2 flex items-center" data-testid={"DataShareContent-Validity-Date"}>  
                     <div className="relative inline-block">
                         <input 
                             type="radio" 
                             name="consentValidity" 
                             value="date" 
                             disabled={true} 
-                            className="accent-iw-primary scale-150" 
+                            className="accent-iw-primary scale-150 mx-2" 
                         />
                         <div 
                             className="absolute inset-0"
