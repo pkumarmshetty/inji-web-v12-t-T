@@ -77,9 +77,9 @@ export const DataShareContent:React.FC<DSContentProps> = (props) => {
                 </label>
             </div>
         </div>
-        <div className="relative flex mb-4" onClick={()=>setTimesDropDown(times => !times)}>
+        <div className="relative flex mb-4">
             <div className={"w-1/3"}></div>
-            <div className={"w-2/3 py-4 px-4 rounded-lg border-2 border-iw-borderLight flex flex-row items-center"}>
+            <div className={"w-2/3 py-4 px-4 rounded-lg border-2 border-iw-borderLight flex flex-row items-center"} onClick={()=>setTimesDropDown(times => !times)}>
                 <label className={"w-full h-full"} data-testid={"DataShareContent-Selected-Validity-Times"}>{getExpiryDisplayName(vcStorageExpiryLimitInTimes)}</label>
                 <MdOutlineKeyboardArrowDown size={30} color={'var(--iw-color-arrowDown)'} />
             </div>
