@@ -83,7 +83,7 @@ describe('Testing API Class', () => {
       name: 'Issuer Name',
       desc: 'Issuer Description',
       protocol: 'OpenId4VCI',
-      credential_issuer: 'issuer123',
+      issuer_id: 'issuer123',
       authorization_endpoint: 'http://auth.server/authorize',
       credentials_endpoint: 'http://credentials.endpoint',
       display: [
