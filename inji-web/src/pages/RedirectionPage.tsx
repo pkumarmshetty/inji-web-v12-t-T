@@ -35,7 +35,7 @@ export const RedirectionPage: React.FC = () => {
                 const code = searchParams.get("code") ?? "";
                 const urlState = searchParams.get("state") ?? "";
                 const codeVerifier = activeSessionInfo?.codeVerifier;
-                const issuerId = activeSessionInfo?.selectedIssuer?.credential_issuer ?? "";
+                const issuerId = activeSessionInfo?.selectedIssuer?.issuer_id ?? "";
                 const certificateId = activeSessionInfo?.certificateId;
                 const vcStorageExpiryLimitInTimes = activeSessionInfo?.vcStorageExpiryLimitInTimes ?? "-1";
 
@@ -87,7 +87,7 @@ export const RedirectionPage: React.FC = () => {
     }
 
     return <div data-testid="Redirection-Page-Container">
-        {activeSessionInfo?.selectedIssuer?.credential_issuer && <NavBar title={displayObject?.name ?? ""} search={false} link={`/issuers/${activeSessionInfo?.selectedIssuer?.credential_issuer}`}/>}
+        {activeSessionInfo?.selectedIssuer?.issuer_id && <NavBar title={displayObject?.name ?? ""} search={false} link={`/issuers/${activeSessionInfo?.selectedIssuer?.issuer_id}`}/>}
         {loadStatusOfRedirection()}
     </div>
 }
