@@ -47,7 +47,7 @@ export type IssuerObject = {
     name: string;
     desc: string;
     protocol: 'OTP' | 'OpenId4VCI';
-    credential_issuer: string,
+    issuer_id: string,
     authorization_endpoint: string;
     credentials_endpoint: string;
     display: DisplayArrayObject[];
