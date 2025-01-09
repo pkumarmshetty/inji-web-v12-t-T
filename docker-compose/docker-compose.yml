@@ -4,7 +4,7 @@ services:
 
   mimoto-service:
     container_name: 'mimoto-service'
-    image: 'mosipid/mimoto:0.14.0'
+    image: 'mosipqa/mimoto:0.15.x'
     user: root
     ports:
       - '8099:8099'
@@ -29,5 +29,6 @@ services:
       - ./config/mimoto-default.properties:/home/mosip/mimoto-default.properties
       - ./config/mimoto-issuers-config.json:/home/mosip/mimoto-issuers-config.json
       - ./config/mimoto-trusted-verifiers.json:/home/mosip/mimoto-trusted-verifiers.json
+      - ./config/credential-template.html:/home/mosip/credential-template.html
     depends_on:
       - mimoto-service
