@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {ModalWrapperProps} from "../types/components";
-
-export const ModalWrapper:React.FC<ModalWrapperProps> = (props) => {
-
-    return <>
-        <div data-testid={"ModalWrapper-Outer-Container"} className={`justify-center flex overflow-x-hidden overflow-y-auto fixed inset-0 ${props.zIndex == 50 ? 'z-50': 'z-40'} outline-none focus:outline-none p-4`}>
-            <div className={`relative w-full p-2 sm:p-6 ${props.size === '3xl' ? 'max-w-3xl' : 'max-w-sm'}`}>
-                <div data-testid={"ModalWrapper-Inner-Container"} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-iw-background outline-none focus:outline-none">
-                    {props.header}
-                    {props.content}
-                    {props.footer}
-                </div>
-            </div>
+export const ModalWrapper: React.FC<ModalWrapperProps> = (props) => {
+  return <>
+    <div data-testid="ModalWrapper-Outer-Container" className={`fixed inset-0 ${props.zIndex == 50 ? 'z-50' : 'z-40'} overflow-y-auto overflow-x-hidden`}>
+      <div className="min-h-full p-0 flex items-center justify-center">
+        <div className={`w-auto my-8 mx-4 sm:mx-6 ${props.size === '3xl' ? 'max-w-3xl' : 'max-w-sm'} `}>
+          <div data-testid="ModalWrapper-Inner-Container" className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-iw-background outline-none focus:outline-none">
+            {props.header}
+            {props.content}
+            {props.footer}
+          </div>
         </div>
-        <div  data-testid={"ModalWrapper-BackDrop"} className={`opacity-25 fixed inset-0 ${props.zIndex == 50 ? 'z-40': 'z-30'} bg-iw-backDrop`}></div>
-    </>
-}
+      </div>
+    </div>
 
+    <div data-testid="ModalWrapper-BackDrop" className={`opacity-25 fixed inset-0 ${props.zIndex == 50 ? 'z-40' : 'z-30'} bg-iw-backDrop`}></div>
+  </>;
+};
