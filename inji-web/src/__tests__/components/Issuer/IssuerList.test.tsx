@@ -1,4 +1,3 @@
-import React from 'react';
 import { IssuersList } from '../../../components/Issuers/IssuersList';
 import { RequestStatus } from '../../../hooks/useFetch';
 import { mockIssuerObjectList } from '../../../test-utils/mockObjects';

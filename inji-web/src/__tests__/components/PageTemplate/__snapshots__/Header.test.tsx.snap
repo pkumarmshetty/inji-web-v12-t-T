@@ -15,7 +15,7 @@ exports[`Header Container Layout Test Check if the layout is matching with the s
           data-testid="Header-InjiWeb-Logo-Container"
         >
           <div
-            class="m-3 sm:hidden"
+            class="m-3 sm:hidden "
             role="button"
             tabindex="0"
           >
@@ -39,7 +39,7 @@ exports[`Header Container Layout Test Check if the layout is matching with the s
           >
             <img
               alt="Inji Web Logo"
-              class="h-13 w-28 scale-150 cursor-pointer"
+              class="h-13 w-28 scale-150 cursor-pointer "
               data-testid="Header-InjiWeb-Logo"
               src="InjiWebLogo.png"
             />

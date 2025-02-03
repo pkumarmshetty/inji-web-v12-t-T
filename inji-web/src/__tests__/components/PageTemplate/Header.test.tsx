@@ -1,5 +1,4 @@
-import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { Header } from "../../../components/PageTemplate/Header";
 import { mockCrypto } from '../../../test-utils/mockUtils';
 import { renderWithProvider,mockUseLanguageSelector } from '../../../test-utils/mockUtils';
