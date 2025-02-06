@@ -179,13 +179,11 @@ describe('HomePage', () => {
     const homeQuickTip = screen.getByTestId('HomeQuickTip');
 
     // First click - show toast
-    await act(async () => {
-      fireEvent.click(homeQuickTip);
-    });
+    fireEvent.click(homeQuickTip);
     
     expect(toast.warning).toHaveBeenCalledTimes(1);
 
-    // Wait for the toast to disappear
+    // Wait for the toast to disappear 
     await act(async () => {
       jest.advanceTimersByTime(150);
     });
@@ -194,18 +192,21 @@ describe('HomePage', () => {
     jest.clearAllMocks();
 
     // Second click - should show toast again
-    await act(async () => {
-      fireEvent.click(homeQuickTip);
-    });
+    fireEvent.click(homeQuickTip);
 
     // Verify toast is shown again
-    expect(toast.warning).toHaveBeenCalledTimes(1);
-    expect(toast.warning).toHaveBeenCalledWith(
-      'QuickTip.toastText',
-      expect.objectContaining({
-        onClose: expect.any(Function)
-      })
-    );
+    await waitFor(() => {
+      expect(toast.warning).toHaveBeenCalledTimes(1);
+    });
+
+    await waitFor(() => {
+      expect(toast.warning).toHaveBeenCalledWith(
+        'QuickTip.toastText',
+        expect.objectContaining({
+          onClose: expect.any(Function)
+        })
+      );
+    });
 
     // Cleanup timers
     jest.useRealTimers();
