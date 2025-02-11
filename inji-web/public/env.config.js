@@ -1,5 +1,5 @@
 window._env_ = {
-    DEFAULT_LANG: "pt",
+    DEFAULT_LANG: "en",
     DEFAULT_THEME: "",
     DEFAULT_FAVICON: "favicon.ico",
     DEFAULT_TITLE: "Inji Wallet",
