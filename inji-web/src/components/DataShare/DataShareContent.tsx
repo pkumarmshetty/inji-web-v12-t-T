@@ -34,9 +34,9 @@ export const DataShareContent:React.FC<DSContentProps> = (props) => {
 
     return <div className="relative px-6 flex flex-col justify-between border-b border-solid border-iw-borderLight" data-testid={"DataShareContent-Outer-Container"}>
         <div className="relative flex border-b-2 space-x-2">
-            <div className="my-4 text-iw-subTitle text-lg w-1/3 leading-relaxed py-5" data-testid={"DataShareContent-Outer-Title"}>{t("content.selectedDocument")}</div>
+            <div className="my-4 break-words text-iw-subTitle text-lg w-1/3 leading-relaxed py-5" data-testid={"DataShareContent-Outer-Title"}>{t("content.selectedDocument")}</div>
             <div className={"my-4 text-center shadow-md rounded-lg w-2/3 flex flex-row py-5 items-center"}>
-                <div className={"px-6"} data-testid={"DataShareContent-Issuer-Logo-Container"}>
+                <div className={"px-4"} data-testid={"DataShareContent-Issuer-Logo-Container"}>
                     <img data-testid={"DataShareContent-Issuer-Logo"} src={props.credentialLogo} alt="Issuer Logo"
                          className="w-12 h-12 min-w-[36px]"/>
                 </div>
