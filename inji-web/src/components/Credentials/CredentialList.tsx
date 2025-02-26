@@ -24,34 +24,34 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
     const credentials = useSelector((state: RootState) => state.credentials);
 
     const filterCredentialsBySelectedOrDefaultLanguage = () => {
-        const missingLanguageSupport: string[] = [];
+        const missingLanguageSupport = [];
 
-        const filteredCredentialsList = Object.entries(
-            credentials?.filtered_credentials
-                ?.credential_configurations_supported || {}
-        ).filter(([credentialType, credential]) => {
-            const {display, credential_definition} =
-                credential as CredentialConfigurationObject; // Destructure
+        // Directly use the credentials_supported array instead of Object.entries
+        const filteredCredentialsList = (
+            credentials?.filtered_credentials?.credentials_supported || []
+        ).filter((credential) => {
+            const display = credential.display;
             const hasMatchingDisplay = display?.some(
-                ({locale}) =>
+                ({ locale }) =>
                     locale === selectedLanguage || locale === defaultLanguage
             );
 
             if (!hasMatchingDisplay) {
-                missingLanguageSupport.push(credential_definition.type[1]);
+                missingLanguageSupport.push(credential);
             }
-            
+
             return hasMatchingDisplay;
         });
 
         if (missingLanguageSupport.length) {
             console.error(
-                `Language support missing for these credential types of issuer: ${missingLanguageSupport.join(
-                    ", "
-                )}`
+                `Language support missing for these credential types of issuer: ${missingLanguageSupport
+                    .map((credential) => credential.name) // Use the 'name' property to display it in the error
+                    .join(", ")}`
             );
         }
-        return Object.fromEntries(filteredCredentialsList);
+
+        return filteredCredentialsList; // Return the full list of filtered credentials
     };
 
     const filteredCredentialsWithLangSupport =
@@ -67,11 +67,11 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
         state === RequestStatus.ERROR ||
         Object.keys(filteredCredentialsWithLangSupport).length == 0 ||
         !credentials?.filtered_credentials
-            ?.credential_configurations_supported ||
+            ?.credentials_supported ||
         (credentials?.filtered_credentials
-            ?.credential_configurations_supported &&
+            ?.credentials_supported &&
             credentials?.filtered_credentials
-                ?.credential_configurations_supported.length === 0)
+                ?.credentials_supported.length === 0)
     ) {
         return (
             <div>
@@ -107,7 +107,7 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
                             credentialId={credentialId}
                             credentialWellknown={
                                 credentials?.filtered_credentials
-                                    ?.credential_configurations_supported[
+                                    ?.credentials_supported[
                                     credentialId
                                 ]
                             }
