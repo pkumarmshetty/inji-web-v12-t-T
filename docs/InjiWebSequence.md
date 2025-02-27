@@ -37,7 +37,7 @@
 
 ### **PDF Download**
 
-- Mimoto uses the download credential data on the [VC PDF template](https://github.com/mosip/mosip-config/blob/collab1/credential-template.html)
+- Mimoto generates the PDF by applying the downloaded credential data to the Credential Template. It fetches the Credential Template file using the issuerId and credentialType, with the file name being in the format "issuerId-credentialType-template.html." If this file does not exist, it falls back to the default Credential Template file (https://github.com/mosip/mosip-config/blob/collab1/credential-template.html).
 - It applies the Issuer's well-known display properties based on the received locale value to adjust the template text and background color. If a locale is provided, it uses the corresponding display object from the Issuer's well-known otherwise, it selects the first display object that includes a locale.
 - It also uses order field in wellknown to render the fields in the same order.
 
