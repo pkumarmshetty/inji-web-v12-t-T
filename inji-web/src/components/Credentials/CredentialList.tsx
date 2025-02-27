@@ -24,15 +24,14 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
     const credentials = useSelector((state: RootState) => state.credentials);
 
     const filterCredentialsBySelectedOrDefaultLanguage = () => {
-        const missingLanguageSupport = [];
+        const missingLanguageSupport: CredentialConfigurationObject[] = [];
 
-        // Directly use the credentials_supported array instead of Object.entries
         const filteredCredentialsList = (
             credentials?.filtered_credentials?.credentials_supported || []
-        ).filter((credential) => {
+        ).filter((credential: CredentialConfigurationObject) => {
             const display = credential.display;
             const hasMatchingDisplay = display?.some(
-                ({ locale }) =>
+                ({locale}) =>
                     locale === selectedLanguage || locale === defaultLanguage
             );
 
@@ -46,12 +45,12 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
         if (missingLanguageSupport.length) {
             console.error(
                 `Language support missing for these credential types of issuer: ${missingLanguageSupport
-                    .map((credential) => credential.name) // Use the 'name' property to display it in the error
+                    .map((credential) => credential.name)
                     .join(", ")}`
             );
         }
 
-        return filteredCredentialsList; // Return the full list of filtered credentials
+        return filteredCredentialsList;
     };
 
     const filteredCredentialsWithLangSupport =
@@ -66,12 +65,10 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
     if (
         state === RequestStatus.ERROR ||
         Object.keys(filteredCredentialsWithLangSupport).length == 0 ||
-        !credentials?.filtered_credentials
-            ?.credentials_supported ||
-        (credentials?.filtered_credentials
-            ?.credentials_supported &&
-            credentials?.filtered_credentials
-                ?.credentials_supported.length === 0)
+        !credentials?.filtered_credentials?.credentials_supported ||
+        (credentials?.filtered_credentials?.credentials_supported &&
+            credentials?.filtered_credentials?.credentials_supported.length ===
+                0)
     ) {
         return (
             <div>
@@ -101,17 +98,15 @@ export const CredentialList: React.FC<CredentialListProps> = ({state}) => {
                 subContent={t("containerSubHeading")}
             />
             <div className="flex flex-wrap gap-3 p-4 pb-20 justify-start">
-                {Object.keys(filteredCredentialsWithLangSupport).map(
-                    (credentialId: string, index: number) => (
+                {filteredCredentialsWithLangSupport.map(
+                    (
+                        credentialConfig: CredentialConfigurationObject,
+                        index: number
+                    ) => (
                         <Credential
-                            credentialId={credentialId}
-                            credentialWellknown={
-                                credentials?.filtered_credentials
-                                    ?.credentials_supported[
-                                    credentialId
-                                ]
-                            }
                             key={index}
+                            credentialId={credentialConfig.name}
+                            credentialWellknown={credentialConfig}
                             index={index}
                             setErrorObj={setErrorObj}
                         />
