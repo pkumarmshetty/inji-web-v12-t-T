@@ -37,5 +37,5 @@ public class GlobelConstants {
     public static final String ListOfCredentialDescriptionTextInPortugues = "Pesquise seu emissor confiável e escolha um tipo de credencial na próxima etapa.";
 
     public static final String ListOfCredentialDescriptionTextInArabic = "ابحث عن جهة الإصدار الموثوق بها واختر نوع بيانات الاعتماد في الخطوة التالية.";
-    public static final String FooterText = "© 2024 Inji. All rights reserved.";
+    public static final String FooterText = "© 2024 MOSIP. All rights reserved.";
 }
