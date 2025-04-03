@@ -8,6 +8,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { RootState } from "../../types/redux";
 import { useSelector } from "react-redux";
 import { isRTL } from "../../utils/i18n";
+import logo from "../../assets/logo.svg";
 export const Header: React.FC = () => {
     const language = useSelector((state: RootState) => state.common.language);
     const { t, i18n } = useTranslation("PageTemplate");
@@ -27,10 +28,10 @@ export const Header: React.FC = () => {
                             tabIndex={0}
                             onMouseDown={() => navigate("/")}
                             onKeyUp={() => navigate("/")}>
-                            <img src={require("../../assets/InjiWebLogo.png")}
-                                className={`h-13 w-28 scale-150 cursor-pointer ${isRTL(language)  ? 'mr-4' : ''}`}
+                            <img src={logo}
+                                className={`h-13 w-28 scale-150 cursor-pointer  object-contain ${isRTL(language)  ? 'mr-4' : ''}`}
                                 data-testid="Header-InjiWeb-Logo"
-                             alt="Inji Web Logo"/>
+                                alt="t & t Web Logo"/>
                     </div>
                 </div>
                 <nav>

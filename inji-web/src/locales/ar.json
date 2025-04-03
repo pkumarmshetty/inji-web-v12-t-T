@@ -5,8 +5,8 @@
       "help": "مساعدة"
     },
     "Footer": {
-      "product": "منتج MOSIP",
-      "copyRight": "© 2024 MOSIP. جميع الحقوق محفوظة."
+     "product": "منتج T&T",
+       "copyRight": "© 2025 T&T. جميع الحقوق محفوظة."
     }
   },
   "HomePage": {
@@ -16,7 +16,7 @@
       "buttontext": "ابدأ الآن"
     },
     "Features": {
-      "heading": "مميزات محفظة انجى",
+      "heading": "مميزات محفظة إنجي",
       "description1": "إدارة سلسة وآمنة للبيانات القابلة للتحقق",
       "description2": "للتفاعلات الرقمية الموثوقة."
     },
