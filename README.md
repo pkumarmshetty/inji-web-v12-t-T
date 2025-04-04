@@ -2,7 +2,7 @@
 Injiweb is a web interface for users who does not have access to smartphone for accessing and using digital credentials. A user should be able to do primariliy 4 key actions - fetch, download, store, share.
 
 ---
-# Installations:
+# Installation:
 
 Node 18 - Can be installed using [nvm](https://github.com/nvm-sh/nvm). Run following commands to install node
 
