@@ -4,7 +4,11 @@ pipeline {
     environment {
         DOCKER_IMAGE_BASE = 'raparna154/inji-web-service'
         MANIFEST_REPO = 'https://github.com/Aparnadeloitte/Inji-infra-azure.git'
+<<<<<<< HEAD
         MANIFEST_BRANCH = 'main'
+=======
+        MANIFEST_BRANCH = 'prod'
+>>>>>>> 8e57e92cf582277451e92162f421560893b55944
     }
 
     stages {
