@@ -70,14 +70,18 @@ pipeline {
                 tag "release-*"
             }
             steps {
-                script {
-                    sh """
-                    argocd --server argocd.dpgongcp.com app sync inji-web-dev
-                    argocd --server argocd.dpgongcp.com app wait inji-web-dev --health --timeout 600
-                    """
-                }
-            }
-        }
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'argocd-dev-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
+                        sh """
+                        argocd login argocd.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
+                        argocd app sync inji-web-dev
+                        argocd app wait inji-web-dev --health --timeout 600
+                        """
+                    }
+                }
+            }
+        }
+
 
         stage('Update prod Manifest Repo') {
             steps {
@@ -108,16 +112,21 @@ pipeline {
                     currentBuild.result == 'SUCCESS'
                 }
             }
+            
             steps {
-                script {
-                    sh """
-                    argocd --server argocd.prod.dpgongcp.com app sync inji-web-prod
-                    argocd --server argocd.prod.dpgongcp.com app wait inji-web-prod --health --timeout 600
-                    """
-                }
-            }
-        }
-    }
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
+                        sh """
+                        argocd login argocd.prod.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
+                        argocd app sync inji-web-prod
+                        argocd app wait inji-web-prod --health --timeout 600
+                        """
+                    }
+                }
+            }
+        }
+    }
+
 
     post {
         success {
