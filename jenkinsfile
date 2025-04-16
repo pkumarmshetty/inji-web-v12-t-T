@@ -4,11 +4,9 @@ pipeline {
     environment {
         DOCKER_IMAGE_BASE = 'raparna154/inji-web-service'
         MANIFEST_REPO = 'https://github.com/Aparnadeloitte/Inji-infra-azure.git'
-        MANIFEST_BRANCH = 'main'
     }
 
     stages {
-       
         stage('Get Commit Hash') {
             steps {
                 script {
@@ -44,35 +42,78 @@ pipeline {
             }
         }
 
-        stage('Update Manifest Repo') {
-             steps {
+        stage('Update dev Manifest Repo') {
+            steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'githubpat2', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
                         sh """
                         rm -rf Inji-infra-azure
-                        # Clone manifest repo
                         git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/Aparnadeloitte/Inji-infra-azure.git
                         cd Inji-infra-azure
-                        git checkout ${MANIFEST_BRANCH}
+                        git checkout main
 
-                        echo "Before update:"
-                        cat inji-web/values.yaml || true
-
-                        # Force update the image tag
                         yq eval '.image.repository = "raparna154/inji-web-service" |
                        .image.tag = "'"${env.GIT_COMMIT}-${env.BUILD_NUMBER}"'"
                         ' -i inji-web/values.yaml
 
-                        # Debugging: Show after update
-                        echo "After update:"
-                        cat inji-web/values.yaml
-
-                        # Commit & Push changes if there are any
                         git add inji-web/values.yaml
-                        git commit -m "Auto-update image repository to ${DOCKER_IMAGE_BASE} and tag to ${env.IMAGE_TAG}" || echo "No changes to commit"
-                        git push origin ${MANIFEST_BRANCH}
+                        git commit -m "Auto-update image repository to ${DOCKER_IMAGE_BASE} and tag to ${env.DOCKER_IMAGE}" || echo "No changes to commit"
+                        git push origin main
                         """
                     }
+                }
+            }
+        }
+
+        stage('Deploy to Dev with ArgoCD') {
+            when {
+                tag "release-*"
+            }
+            steps {
+                script {
+                    sh """
+                    argocd --server argocd.dpgongcp.com app sync inji-web-dev
+                    argocd --server argocd.dpgongcp.com app wait inji-web-dev --health --timeout 600
+                    """
+                }
+            }
+        }
+
+        stage('Update prod Manifest Repo') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'githubpat2', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+                        sh """
+                        rm -rf Inji-infra-azure
+                        git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/Aparnadeloitte/Inji-infra-azure.git
+                        cd Inji-infra-azure
+                        git checkout prod
+
+                        yq eval '.image.repository = "raparna154/inji-web-service" |
+                       .image.tag = "'"${env.GIT_COMMIT}-${env.BUILD_NUMBER}"'"
+                        ' -i inji-web/values.yaml
+
+                        git add inji-web/values.yaml
+                        git commit -m "Auto-update image repository to ${DOCKER_IMAGE_BASE} and tag to ${env.DOCKER_IMAGE}" || echo "No changes to commit"
+                        git push origin prod
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Prod with ArgoCD') {
+            when {
+                expression {
+                    currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                script {
+                    sh """
+                    argocd --server argocd.prod.dpgongcp.com app sync inji-web-prod
+                    argocd --server argocd.prod.dpgongcp.com app wait inji-web-prod --health --timeout 600
+                    """
                 }
             }
         }
