@@ -114,21 +114,20 @@ pipeline {
                 expression {
                     currentBuild.result == 'SUCCESS'
                 }
-            }
-            
+            }            
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
-                        sh """
-                        argocd login argocd.prod.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
-                        argocd app sync inji-web-prod
-                        argocd app wait inji-web-prod --health --timeout 600
-                        """
-                    }
-                }
-            }
-        }
-    }
+               script {
+                  withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
+                     sh """
+                        argocd login argocd.prod.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
+                        argocd app sync inji-web-prod
+                        argocd app wait inji-web-prod --health --timeout 600
+                        """
+                    }
+                }
+            }
+        }
+    }
 
 
     post {
