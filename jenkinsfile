@@ -68,9 +68,9 @@ pipeline {
         
         
         stage('Deploy to Dev with ArgoCD') {
-            when {
-                tag "release-*"
-            }
+            //when {
+                //tag "release-*"
+            //}
             steps {
                script {
                   withCredentials([usernamePassword(credentialsId: 'argocd-dev-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
