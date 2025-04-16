@@ -66,22 +66,22 @@ pipeline {
         }
 
         
-       stage('Deploy to Dev with ArgoCD') {
-            when {
-                tag "release-*"
-            }
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'argocd-dev-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
-                        sh """
-                        argocd login argocd.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
-                        argocd app sync inji-web-dev
-                        argocd app wait inji-web-dev --health --timeout 600
-                        """
-                    }
-                }
-            }
-        }
+        stage('Deploy to Dev with ArgoCD') {
+           when {
+               tag "release-*"
+           }
+           steps {
+               script {
+                   withCredentials([usernamePassword(credentialsId: 'argocd-dev-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
+                       sh """
+                       argocd login argocd.dpgongcp.com --username ${ARGOCD_USER} --password ${ARGOCD_PASS} --insecure
+                       argocd app sync inji-web-dev
+                       argocd app wait inji-web-dev --health --timeout 600
+                       """
+                   }
+               }
+           }
+       }
 
 
         stage('Update prod Manifest Repo') {
