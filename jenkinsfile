@@ -129,7 +129,6 @@ pipeline {
         }
     }
 
-
     post {
         success {
             echo "Pipeline completed successfully! updated image: ${env.DOCKER_IMAGE} in manifest repo."
