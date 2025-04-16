@@ -110,11 +110,11 @@ pipeline {
         }
 
         stage('Deploy to Prod with ArgoCD') {
-            when {
-                expression {
-                    currentBuild.result == 'SUCCESS'
-                }
-            }            
+            //when {
+                //expression {
+                    //currentBuild.result == 'SUCCESS'
+                //}
+            //}            
             steps {
                script {
                   withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
