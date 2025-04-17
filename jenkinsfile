@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_BASE = 'raparna154/inji-web-service'
         MANIFEST_REPO = 'https://github.com/Aparnadeloitte/Inji-infra-azure.git'
+        DEPLOY_TO_PROD = false
     }
 
     stages {
@@ -87,6 +88,11 @@ pipeline {
 
 
         stage('Update prod Manifest Repo') {
+            when {
+              expression {
+                env.DEPLOY_TO_PROD == 'true'
+                }
+            }
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'githubpat2', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
@@ -110,11 +116,12 @@ pipeline {
         }
 
         stage('Deploy to Prod with ArgoCD') {
-            //when {
-                //expression {
-                    //currentBuild.result == 'SUCCESS'
-                //}
-            //}            
+            when {
+                expression {
+                    env.DEPLOY_TO_PROD == 'true'
+                    }
+                }
+           
             steps {
                script {
                   withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
