@@ -129,8 +129,7 @@ pipeline {
                 expression {
                     env.DEPLOY_TO_PROD == 'true'
                     }
-                }
-           
+                }          
             steps {
                script {
                   withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
