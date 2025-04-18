@@ -96,7 +96,7 @@ pipeline {
             }
         }
 
-        stage('Update prod Manifest Repo') {
+        stage('Update prod Manifest Repo.') {
             when {
               expression {
                 env.DEPLOY_TO_PROD == 'true'
