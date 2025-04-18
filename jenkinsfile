@@ -98,11 +98,11 @@ pipeline {
         }
 
         stage('Update prod Manifest Repo..') {
-            when {
-              expression {
-                env.DEPLOY_TO_PROD == 'true'
-                }
-            }
+            //when {
+              //expression {
+                //env.DEPLOY_TO_PROD == 'true'
+                //}
+            //}
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'githubpat2', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
@@ -126,11 +126,11 @@ pipeline {
         }
 
         stage('Deploy to Prod with ArgoCD.') {
-            when {
-                expression {
-                   env.DEPLOY_TO_PROD == 'true'
-                    }
-                }          
+            //when {
+                //expression {
+                   //env.DEPLOY_TO_PROD == 'true'
+                    //}
+                //}          
             steps {
                script {
                   withCredentials([usernamePassword(credentialsId: 'argocd-prod-credentials', usernameVariable: 'ARGOCD_USER', passwordVariable: 'ARGOCD_PASS')]) {
